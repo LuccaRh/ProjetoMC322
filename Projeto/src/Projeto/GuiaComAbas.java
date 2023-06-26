@@ -42,18 +42,18 @@ public class GuiaComAbas extends JFrame{
         //Adicionar elemento no arquivo
         JPanel inputPanel = new JPanel();
         JTextField nomeTextField = new JTextField(10);
-        JTextField macaTextField = new JTextField(10);
-        JTextField bananaTextField = new JTextField(10);
-        JTextField uvaTextField = new JTextField(10);
+        JTextField macaTextField = new JTextField("0", 10);
+        JTextField bananaTextField = new JTextField("0", 10);
+        JTextField uvaTextField = new JTextField("0", 10);
         JButton confirmarButton = new JButton("Confirmar");
         
         inputPanel.add(new JLabel("Nome:"));
         inputPanel.add(nomeTextField);
-        inputPanel.add(new JLabel("Maca:"));
+        inputPanel.add(new JLabel("Maça(kg):"));
         inputPanel.add(macaTextField);
-        inputPanel.add(new JLabel("Banana:"));
+        inputPanel.add(new JLabel("Banana(kg):"));
         inputPanel.add(bananaTextField);
-        inputPanel.add(new JLabel("Uva:"));
+        inputPanel.add(new JLabel("Uva(kg):"));
         inputPanel.add(uvaTextField);
         
         adicionarPanel.setLayout(new BoxLayout(adicionarPanel, BoxLayout.Y_AXIS));
@@ -112,11 +112,15 @@ public class GuiaComAbas extends JFrame{
     private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
-            String novoRegistro = id++ + "," + nome + "," + maca + "," + banana + "," + uva;
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
+            String novoRegistro = id++ + "," 
+                                + nome + "," 
+                                + Double.parseDouble(maca)*TabelaValores.MACA.getValor() + "," 
+                                + Double.parseDouble(banana)*TabelaValores.BANANA.getValor() + "," 
+                                + Double.parseDouble(uva)*TabelaValores.UVA.getValor();
             writer.write(novoRegistro);
             writer.newLine();
-        } catch (IOException e) {
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
