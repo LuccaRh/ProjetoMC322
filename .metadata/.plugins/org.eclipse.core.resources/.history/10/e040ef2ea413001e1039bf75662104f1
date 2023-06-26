@@ -1,0 +1,26 @@
+package Projeto;
+import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFee!");
+			} catch (Exception ex) {
+			}
+			String nome = null;
+			int resposta;
+			nome = JOptionPane.showInputDialog("Qual é o seu nome?");
+			resposta = JOptionPane.showConfirmDialog(null, "0 seu nome é " + nome + "?");
+			if (resposta == JOptionPane.YES_OPTION) {
+			// verifica se o usuário clicou no botão YES
+				JOptionPane.showMessageDialog(null, "Seu nome é " + nome, null, JOptionPane.INFORMATION_MESSAGE);
+			} else {
+			JOptionPane.showMessageDialog(null, "Seu nome não é " + nome, null, JOptionPane. ERROR_MESSAGE);
+			}
+	}
+
+}

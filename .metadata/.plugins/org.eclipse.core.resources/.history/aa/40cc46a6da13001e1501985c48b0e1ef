@@ -1,0 +1,23 @@
+package Projeto;
+import javax.swing.SwingUtilities;
+
+public class main {
+
+	public static void main(String[] args) {
+		
+		//Abas de ações
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new GuiaComAbas();
+            }
+        });
+		
+		/* Imagem
+		Imagem asfa = new Imagem();
+		asfa.Mob();
+		*/
+	}
+}
+
+
+

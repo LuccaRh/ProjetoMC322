@@ -1,0 +1,23 @@
+package Projeto;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
+public class main {
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new GuiaComAbas();
+            }
+        });
+		Imagem asfa = new Imagem();
+		asfa.Mob();
+	}
+}
+
+
+
