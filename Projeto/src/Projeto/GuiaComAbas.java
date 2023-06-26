@@ -9,9 +9,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.table.DefaultTableModel;
 
-public class GuiaComAbas extends JFrame {
+public class GuiaComAbas extends JFrame{
+    private static int id = 1;
 	public String path;
-    public GuiaComAbas(String path) {
+    public GuiaComAbas(String path){
         super("Exemplo de Abas");
         this.path = path;
         // Cria o painel de abas
@@ -66,7 +67,7 @@ public class GuiaComAbas extends JFrame {
         listagemPanel.add(scrollPane);
     
         //Botão de confirmar
-        confirmarButton.addActionListener(new ActionListener() {
+        confirmarButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeTextField.getText();
                 String maca = macaTextField.getText();
@@ -90,7 +91,7 @@ public class GuiaComAbas extends JFrame {
     
     private JTable carregarDadosCSV() {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
-        String[] colunas = {"Nome", "Maca", "Banana", "Uva"};
+        String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
@@ -98,6 +99,7 @@ public class GuiaComAbas extends JFrame {
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
                 tableModel.addRow(dados);
+                id++;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,11 +109,11 @@ public class GuiaComAbas extends JFrame {
     }
     
     
-    private void adicionarRegistroCSV(String nome, String maca, String banana, String uva) {
+    private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))) {
-            String novoRegistro = nome + "," + maca + "," + banana + "," + uva;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
+            String novoRegistro = id++ + "," + nome + "," + maca + "," + banana + "," + uva;
             writer.write(novoRegistro);
             writer.newLine();
         } catch (IOException e) {
