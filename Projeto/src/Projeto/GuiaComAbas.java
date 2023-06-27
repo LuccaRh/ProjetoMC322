@@ -16,8 +16,10 @@ public class GuiaComAbas extends JFrame{
 	Random random = new Random();
     private int id;
 	public String path;
+    private ImageIcon icon = new ImageIcon("projetoMC322/Projeto/src/Imagens/icon.png");
     public GuiaComAbas(String path){
-        super("Exemplo de Abas");
+        super("Frutaria");
+        setIconImage(icon.getImage());
         this.path = path;
         // Cria o painel de abas
         JTabbedPane tabbedPane = new JTabbedPane();
