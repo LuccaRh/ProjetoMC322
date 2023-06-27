@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.table.DefaultTableModel;
@@ -110,6 +111,24 @@ public class GuiaComAbas extends JFrame{
                 tableModel.addRow(new Object[]{nome, maca, banana, uva});
             }
         });
+        atualizarButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                String id = attIdTextField.getText();
+                String nome = attNomeTextField.getText();
+                String maca = attMacaTextField.getText();
+                String banana = attBananaTextField.getText();
+                String uva = attUvaTextField.getText();
+
+                atualizarRegistroCSV(tabela, id, nome, maca, banana, uva);
+
+                // Limpar os campos de texto após adicionar o registro
+                attIdTextField.setText("");
+                attNomeTextField.setText("");
+                attMacaTextField.setText("");
+                attBananaTextField.setText("");
+                attUvaTextField.setText("");
+            }
+        });
     }
     
     private JTable carregarDadosCSV(){
@@ -142,6 +161,32 @@ public class GuiaComAbas extends JFrame{
                                 + Double.parseDouble(uva)*TabelaValores.UVA.getValor();
             writer.write(novoRegistro);
             writer.newLine();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void atualizarRegistroCSV(JTable tabela, String stringId, String nome, String maca, String banana, String uva){
+        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
+        double doubleMaca = Double.parseDouble(maca)*TabelaValores.MACA.getValor(), 
+               doubleBanana = Double.parseDouble(banana)*TabelaValores.BANANA.getValor(), 
+               doubleUva = Double.parseDouble(uva)*TabelaValores.UVA.getValor();
+
+        
+        try(BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))){
+            String linha;
+            int row = 0;
+            while((linha = reader.readLine()) != null){
+                String[] dados = linha.split(",");
+                if(Objects.equals(stringId, dados[0])){//Procura o ID
+                    tabela.setValueAt(nome, row, 1);//Atualiza o nome
+                    tabela.setValueAt(doubleMaca+"", row, 2);//Atualiza a maçã
+                    tabela.setValueAt(doubleBanana+"", row, 3);//Atualiza a banana
+                    tabela.setValueAt(doubleUva+"", row, 4);//Atualiza a uva
+                    break;
+                }
+                row++;
+            }
         }catch(IOException e){
             e.printStackTrace();
         }
