@@ -53,7 +53,6 @@ public class GuiaComAbas extends JFrame{
         //Atualizar elemento no arquivo
         JPanel attPanel = new JPanel();
         JTextField attIdTextField = new JTextField(10);
-        JTextField attNomeTextField = new JTextField(10);
         JTextField attMacaTextField = new JTextField("0", 10);
         JTextField attBananaTextField = new JTextField("0", 10);
         JTextField attUvaTextField = new JTextField("0", 10);
@@ -74,8 +73,6 @@ public class GuiaComAbas extends JFrame{
 
         attPanel.add(new JLabel("ID:"));
         attPanel.add(attIdTextField);
-        attPanel.add(new JLabel("Nome:"));
-        attPanel.add(attNomeTextField);
         attPanel.add(new JLabel("Maçã(kg):"));
         attPanel.add(attMacaTextField);
         attPanel.add(new JLabel("Banana(kg):"));
@@ -83,7 +80,6 @@ public class GuiaComAbas extends JFrame{
         attPanel.add(new JLabel("Uva(kg):"));
         attPanel.add(attUvaTextField);
         attIdTextField.setText("");
-        attNomeTextField.setText("");
         attMacaTextField.setText("");
         attBananaTextField.setText("");
         attUvaTextField.setText("");
@@ -108,7 +104,24 @@ public class GuiaComAbas extends JFrame{
                 String maca = macaTextField.getText();
                 String banana = bananaTextField.getText();
                 String uva = uvaTextField.getText();
+                
+                String caminhoArquivo = path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+                
+                try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+                    String linha;
+                    while ((linha = reader.readLine()) != null) {
+                        String[] dados = linha.split(",");
+                        String nomeExistente = dados[1]; // Índice da coluna de nomes
 
+                        if (nomeExistente.equals(nome)) {
+                            throw new IOException("O nome já está sendo usado.");
+                        }
+                    }
+                }catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage(), "Nome duplicado", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
                 adicionarRegistroCSV(nome, maca, banana, uva);
                 
                 double macad = Double.parseDouble(maca)*TabelaValores.MACA.getValor();
@@ -129,25 +142,45 @@ public class GuiaComAbas extends JFrame{
         atualizarButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 String id = attIdTextField.getText();
-                String nome = attNomeTextField.getText();
                 String maca = attMacaTextField.getText();
                 String banana = attBananaTextField.getText();
                 String uva = attUvaTextField.getText();
+                String caminhoArquivo = path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+                
+                try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+                    String linha;
+                    boolean idverificar = false;
+                    while ((linha = reader.readLine()) != null) {
+                        String[] dados = linha.split(",");
+                        String idEncontrado = dados[0]; // Índice da coluna de nomes
 
-                atualizarRegistroCSV(tabela, id, nome, maca, banana, uva);
-
+                        if (idEncontrado.equals(id)) {
+                            idverificar = true;
+                        }
+                    }
+                    if (!idverificar) {
+                    	throw new IOException("Id não encontrado.");
+                    }
+                }catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "ID não encontrado. Por favor, verifique o ID digitado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                atualizarRegistroCSV(tabela, id, maca, banana, uva);
+                
                 // Limpar os campos de texto após adicionar o registro
                 attIdTextField.setText("");
-                attNomeTextField.setText("");
                 attMacaTextField.setText("");
                 attBananaTextField.setText("");
                 attUvaTextField.setText("");
+                
+             
             }
         });
     }
     
     private JTable carregarDadosCSV(){
-        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
+        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
         String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         
@@ -166,7 +199,8 @@ public class GuiaComAbas extends JFrame{
     }
     
     private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
-        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
+        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+        
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
         	int numeroInteiro = random.nextInt(100000000);
@@ -178,35 +212,49 @@ public class GuiaComAbas extends JFrame{
                                 + Double.parseDouble(uva)*TabelaValores.UVA.getValor();
             writer.write(novoRegistro);
             writer.newLine();
+            JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }catch(IOException e){
             e.printStackTrace();
+            return;
         }
     }
 
-    private void atualizarRegistroCSV(JTable tabela, String stringId, String nome, String maca, String banana, String uva){
-        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
-        double doubleMaca = Double.parseDouble(maca)*TabelaValores.MACA.getValor(), 
-               doubleBanana = Double.parseDouble(banana)*TabelaValores.BANANA.getValor(), 
-               doubleUva = Double.parseDouble(uva)*TabelaValores.UVA.getValor();
+    private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva) {
+        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+        double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0;
+        boolean idEncontrado = false;
 
-        
-        try(BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
             int row = 0;
-            while((linha = reader.readLine()) != null){
+            
+            while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
-                if(Objects.equals(stringId, dados[0])){//Procura o ID
-                    tabela.setValueAt(nome, row, 1);//Atualiza o nome
-                    tabela.setValueAt(doubleMaca+"", row, 2);//Atualiza a maçã
-                    tabela.setValueAt(doubleBanana+"", row, 3);//Atualiza a banana
-                    tabela.setValueAt(doubleUva+"", row, 4);//Atualiza a uva
+                if (Objects.equals(stringId, dados[0])) { // Procura o ID
+                  
+                    if (!maca.isEmpty()) {
+                        doubleMaca = Double.parseDouble(maca) * TabelaValores.MACA.getValor();
+                        tabela.setValueAt(doubleMaca + "", row, 2); // Atualiza a maçã
+                    }
+                    if (!banana.isEmpty()) {
+                        doubleBanana = Double.parseDouble(banana) * TabelaValores.BANANA.getValor();
+                        tabela.setValueAt(doubleBanana + "", row, 3); // Atualiza a banana
+                    }
+                    if (!uva.isEmpty()) {
+                        doubleUva = Double.parseDouble(uva) * TabelaValores.UVA.getValor();
+                        tabela.setValueAt(doubleUva + "", row, 4); // Atualiza a uva
+                    }
                     break;
                 }
                 row++;
             }
-        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Valores atualizados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
+      
     }
     
 }
