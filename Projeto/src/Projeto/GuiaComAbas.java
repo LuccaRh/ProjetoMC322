@@ -40,7 +40,7 @@ public class GuiaComAbas extends JFrame{
         getContentPane().add(tabbedPane);
 
         // Define o tamanho e a visibilidade do frame
-        setSize(400, 300);
+        setSize(475, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
