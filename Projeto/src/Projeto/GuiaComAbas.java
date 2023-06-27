@@ -275,7 +275,6 @@ public class GuiaComAbas extends JFrame{
     private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva) {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0;
-        boolean idEncontrado = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
