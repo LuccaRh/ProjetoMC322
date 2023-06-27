@@ -1,0 +1,59 @@
+package Projeto;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			} catch (Exception ex) {
+			}
+			String nome = null;
+			int resposta;
+			nome = JOptionPane.showInputDialog("Qual é o seu nome?");
+			resposta = JOptionPane.showConfirmDialog(null, "0 seu nome é " + nome + "?");
+			if (resposta == JOptionPane.YES_OPTION) {
+			// verifica se o usuário clicou no botão YES
+				JOptionPane.showMessageDialog(null, "Seu nome é " + nome, null, JOptionPane.INFORMATION_MESSAGE);
+			} else {
+			JOptionPane.showMessageDialog(null, "Seu nome não é " + nome, null, JOptionPane. ERROR_MESSAGE);
+			}			
+			        String caminhoArquivo = "c:/Users/lucca/projetoMC322/Projeto/src/Projeto/Nome.csv";
+			        String nomeDesejado = nome;
+			        System.out.println(nomeDesejado);
+			        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+			            String linha;
+			            boolean nomeEncontrado = false;
+
+			            while ((linha = reader.readLine()) != null) {
+			                String[] colunas = linha.split(","); // Supondo que as colunas sejam separadas por vírgula
+
+			                if (colunas.length > 0) {
+			                    String nome1 = colunas[0]; // Supondo que a coluna dos nomes seja a primeira coluna
+			                    nome1 = nome1.replace("\"", "");
+			                    if (nome1.equalsIgnoreCase(nomeDesejado)) {
+			                        nomeEncontrado = true;
+			                        break;
+			                    }
+			                }
+			            }
+
+			            if (nomeEncontrado) {
+			                System.out.println("O nome foi encontrado no arquivo CSV.");
+			            } else {
+			                System.out.println("O nome não foi encontrado no arquivo CSV.");
+			            }
+			        } catch (IOException e) {
+			            e.printStackTrace();
+			        }
+			Imagem asfa = new Imagem();
+			//asfa.Mob();			
+	    }       
+	}
+

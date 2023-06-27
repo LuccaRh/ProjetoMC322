@@ -1,0 +1,21 @@
+package Projeto;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Imagem {
+	public void Mob() {
+		JFrame frame = new JFrame("Exemplo de redimensionamento de imagem");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	    // Carregar a imagem do arquivo
+	    ImageIcon imageIcon = new ImageIcon("Projeto\Mob-laughing-1024x576.jpg");
+	    JFrame frame1 = new JFrame("Exemplo de redimensionamento de imagem");
+	    frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    JButton b1 = new JButton(imageIcon);
+	    frame1.add(b1);
+	    frame1.pack();
+	    frame1.show();	
+	}
+}

@@ -1,0 +1,6 @@
+Nome,Maca,Banana,Uva
+João,1,2,3
+Maria,3,3,3
+Pedro,4,2,1
+Ana,14,2,3
+Carlos,4,5,1

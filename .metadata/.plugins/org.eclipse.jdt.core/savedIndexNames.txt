@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\lucca\ProjetoMC322-main\.metadata\.plugins\org.eclipse.jdt.core
+2502902422.index
+1865797976.index
+4139074035.index

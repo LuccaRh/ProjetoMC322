@@ -1,0 +1,103 @@
+package Projeto;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+import javax.swing.table.DefaultTableModel;
+
+public class GuiaComAbas extends JFrame {
+    public GuiaComAbas() {
+        super("Exemplo de Abas");
+
+        // Cria o painel de abas
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        // Cria as abas
+        JPanel listagemPanel = new JPanel();
+        JPanel adicionarPanel = new JPanel();
+        JPanel atualizarPanel = new JPanel();
+        JPanel removerPanel = new JPanel();
+
+        // Adiciona os botões nas abas
+        JButton listagemButton = new JButton("Listagem");
+        JButton adicionarButton = new JButton("Adicionar");
+        JButton atualizarButton = new JButton("Atualizar");
+        JButton removerButton = new JButton("Remover");
+
+        listagemPanel.add(listagemButton);
+        adicionarPanel.add(adicionarButton);
+        atualizarPanel.add(atualizarButton);
+        removerPanel.add(removerButton);
+
+        // Adiciona as abas no painel de abas
+        tabbedPane.addTab("Listagem", listagemPanel);
+        tabbedPane.addTab("Adicionar", adicionarPanel);
+        tabbedPane.addTab("Atualizar", atualizarPanel);
+        tabbedPane.addTab("Remover", removerPanel);
+
+        // Adiciona o painel de abas no frame principal
+        getContentPane().add(tabbedPane);
+
+        // Define o tamanho e a visibilidade do frame
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        // Define as ações dos botões para trocar as abas
+        listagemButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tabbedPane.setSelectedIndex(0);
+            }
+        });
+
+        adicionarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tabbedPane.setSelectedIndex(1);
+            }
+        });
+
+        atualizarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tabbedPane.setSelectedIndex(2);
+            }
+        });
+
+        removerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tabbedPane.setSelectedIndex(3);
+            }
+        });
+        
+        
+        JTable tabela = carregarDadosCSV();
+        JScrollPane scrollPane = new JScrollPane(tabela);
+        listagemPanel.add(scrollPane);
+        
+        
+    }
+    
+    
+    private JTable carregarDadosCSV() {
+        String caminhoArquivo = "c:/Users/lucca/projetoMC322/Projeto/src/Projeto/Nome.csv";
+        String[] colunas = {"Nome", "Maca", "Banana", "Uva"};
+        DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(",");
+                tableModel.addRow(dados);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new JTable(tableModel);
+    }
+
+    
+}
+
