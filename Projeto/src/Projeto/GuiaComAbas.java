@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
@@ -58,6 +59,10 @@ public class GuiaComAbas extends JFrame{
         JTextField attUvaTextField = new JTextField("0", 10);
         JButton atualizarButton = new JButton("Atualizar");
         
+        JPanel remPanel = new JPanel();
+        JTextField remIdTextField = new JTextField("0", 10);
+        JButton removerButton = new JButton("Remover");
+        
         inputPanel.add(new JLabel("Nome:"));
         inputPanel.add(nomeTextField);
         inputPanel.add(new JLabel("Maçã(kg):"));
@@ -84,6 +89,10 @@ public class GuiaComAbas extends JFrame{
         attBananaTextField.setText("");
         attUvaTextField.setText("");
         
+        remPanel.add(new JLabel("ID:"));
+        remPanel.add(remIdTextField);
+        remIdTextField.setText("");
+        
         adicionarPanel.setLayout(new BoxLayout(adicionarPanel, BoxLayout.Y_AXIS));
         adicionarPanel.add(inputPanel);
         adicionarPanel.add(confirmarButton);
@@ -91,6 +100,10 @@ public class GuiaComAbas extends JFrame{
         atualizarPanel.setLayout(new BoxLayout(atualizarPanel, BoxLayout.Y_AXIS));
         atualizarPanel.add(attPanel);
         atualizarPanel.add(atualizarButton);
+        
+        removerPanel.setLayout(new BoxLayout(removerPanel, BoxLayout.Y_AXIS));
+        removerPanel.add(remPanel);
+        removerPanel.add(removerButton);
         
         //Tabela
         JTable tabela = carregarDadosCSV();
@@ -105,7 +118,7 @@ public class GuiaComAbas extends JFrame{
                 String banana = bananaTextField.getText();
                 String uva = uvaTextField.getText();
                 
-                String caminhoArquivo = path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+                String caminhoArquivo = path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
                 
                 try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
                     String linha;
@@ -145,7 +158,7 @@ public class GuiaComAbas extends JFrame{
                 String maca = attMacaTextField.getText();
                 String banana = attBananaTextField.getText();
                 String uva = attUvaTextField.getText();
-                String caminhoArquivo = path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+                String caminhoArquivo = path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
                 
                 try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
                     String linha;
@@ -177,10 +190,50 @@ public class GuiaComAbas extends JFrame{
              
             }
         });
+        
+        removerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String id = remIdTextField.getText();
+                
+                String caminhoArquivo = path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
+                
+                try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+                    String linha;
+                    boolean idverificar = false;
+                    while ((linha = reader.readLine()) != null) {
+                        String[] dados = linha.split(",");
+                        String idEncontrado = dados[0]; // Índice da coluna de nomes
+
+                        if (idEncontrado.equals(id)) {
+                            idverificar = true;
+                        }
+                    }
+                    if (!idverificar) {
+                    	throw new IOException("Id não encontrado.");
+                    }
+                }catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "ID não encontrado. Por favor, verifique o ID digitado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                try {
+                    removerRegistroCSV(tabela, id); // Chame o método para remover o registro da tabela
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao remover registro: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                remIdTextField.setText(""); // Limpar o campo de texto do ID após a remoção
+                
+                // Atualizar a tabela após a remoção
+                DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
+                tableModel.fireTableDataChanged(); // Notifique a tabela sobre a alteração nos dados
+            }
+        });
     }
     
     private JTable carregarDadosCSV(){
-        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         
@@ -199,7 +252,7 @@ public class GuiaComAbas extends JFrame{
     }
     
     private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
-        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
@@ -220,7 +273,7 @@ public class GuiaComAbas extends JFrame{
     }
 
     private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva) {
-        String caminhoArquivo = this.path + "projetoMC322-main/Projeto/src/Projeto/Nome.csv";
+        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0;
         boolean idEncontrado = false;
 
@@ -256,5 +309,43 @@ public class GuiaComAbas extends JFrame{
         }
       
     }
-    
+    private void removerRegistroCSV(JTable tabela, String id) throws IOException {
+        String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
+        DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
+        int rowCount = tableModel.getRowCount();
+        
+        for (int i = 0; i < rowCount; i++) {
+            String rowId = tableModel.getValueAt(i, 0).toString();
+            
+            if (rowId.equals(id)) {
+                tableModel.removeRow(i);
+                break;
+            }
+        }
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo + ".tmp"))) {
+                String linha;
+                while ((linha = reader.readLine()) != null) {
+                    String[] dados = linha.split(",");
+                    String linhaId = dados[0]; // Índice da coluna de ID
+
+                    if (!linhaId.equals(id)) {
+                        writer.write(linha);
+                        writer.newLine();
+                    }
+                }
+            }
+        }
+        
+        // Remova o arquivo original e renomeie o arquivo temporário para o nome original
+        File arquivoOriginal = new File(caminhoArquivo);
+        File arquivoTemporario = new File(caminhoArquivo + ".tmp");
+        if (arquivoOriginal.exists()) {
+            arquivoOriginal.delete();
+        }
+        arquivoTemporario.renameTo(arquivoOriginal);
+        
+        JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
