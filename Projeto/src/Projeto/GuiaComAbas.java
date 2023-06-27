@@ -9,9 +9,11 @@ import java.util.Objects;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.table.DefaultTableModel;
+import java.util.Random;
 
 public class GuiaComAbas extends JFrame{
-    private static int id = 0;
+	Random random = new Random();
+    private int id;
 	public String path;
     public GuiaComAbas(String path){
         super("Exemplo de Abas");
@@ -65,6 +67,10 @@ public class GuiaComAbas extends JFrame{
         inputPanel.add(bananaTextField);
         inputPanel.add(new JLabel("Uva(kg):"));
         inputPanel.add(uvaTextField);
+        nomeTextField.setText("");
+        macaTextField.setText("");
+        bananaTextField.setText("");
+        uvaTextField.setText("");
 
         attPanel.add(new JLabel("ID:"));
         attPanel.add(attIdTextField);
@@ -76,6 +82,11 @@ public class GuiaComAbas extends JFrame{
         attPanel.add(attBananaTextField);
         attPanel.add(new JLabel("Uva(kg):"));
         attPanel.add(attUvaTextField);
+        attIdTextField.setText("");
+        attNomeTextField.setText("");
+        attMacaTextField.setText("");
+        attBananaTextField.setText("");
+        attUvaTextField.setText("");
         
         adicionarPanel.setLayout(new BoxLayout(adicionarPanel, BoxLayout.Y_AXIS));
         adicionarPanel.add(inputPanel);
@@ -99,7 +110,11 @@ public class GuiaComAbas extends JFrame{
                 String uva = uvaTextField.getText();
 
                 adicionarRegistroCSV(nome, maca, banana, uva);
-
+                
+                double macad = Double.parseDouble(maca)*TabelaValores.MACA.getValor();
+                double bananad = Double.parseDouble(banana)*TabelaValores.BANANA.getValor(); 
+                double uvad = Double.parseDouble(uva)*TabelaValores.UVA.getValor();
+                
                 // Limpar os campos de texto após adicionar o registro
                 nomeTextField.setText("");
                 macaTextField.setText("");
@@ -108,7 +123,7 @@ public class GuiaComAbas extends JFrame{
 
                 // Atualizar a tabela após adicionar o registro
                 DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
-                tableModel.addRow(new Object[]{nome, maca, banana, uva});
+                tableModel.addRow(new Object[]{id, nome, macad, bananad, uvad}); 
             }
         });
         atualizarButton.addActionListener(new ActionListener(){
@@ -154,7 +169,9 @@ public class GuiaComAbas extends JFrame{
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
-            String novoRegistro = id++ + "," 
+        	int numeroInteiro = random.nextInt(100000000);
+        	id = numeroInteiro;
+            String novoRegistro = id + "," 
                                 + nome + "," 
                                 + Double.parseDouble(maca)*TabelaValores.MACA.getValor() + "," 
                                 + Double.parseDouble(banana)*TabelaValores.BANANA.getValor() + "," 
@@ -193,4 +210,3 @@ public class GuiaComAbas extends JFrame{
     }
     
 }
-
