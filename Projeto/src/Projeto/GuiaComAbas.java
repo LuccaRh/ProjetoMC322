@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 import javax.swing.table.DefaultTableModel;
 
 public class GuiaComAbas extends JFrame{
-    private static int id = 1;
+    private static int id = 0;
 	public String path;
     public GuiaComAbas(String path){
         super("Exemplo de Abas");
@@ -46,20 +46,43 @@ public class GuiaComAbas extends JFrame{
         JTextField bananaTextField = new JTextField("0", 10);
         JTextField uvaTextField = new JTextField("0", 10);
         JButton confirmarButton = new JButton("Confirmar");
+
+        //Atualizar elemento no arquivo
+        JPanel attPanel = new JPanel();
+        JTextField attIdTextField = new JTextField(10);
+        JTextField attNomeTextField = new JTextField(10);
+        JTextField attMacaTextField = new JTextField("0", 10);
+        JTextField attBananaTextField = new JTextField("0", 10);
+        JTextField attUvaTextField = new JTextField("0", 10);
+        JButton atualizarButton = new JButton("Atualizar");
         
         inputPanel.add(new JLabel("Nome:"));
         inputPanel.add(nomeTextField);
-        inputPanel.add(new JLabel("Maça(kg):"));
+        inputPanel.add(new JLabel("Maçã(kg):"));
         inputPanel.add(macaTextField);
         inputPanel.add(new JLabel("Banana(kg):"));
         inputPanel.add(bananaTextField);
         inputPanel.add(new JLabel("Uva(kg):"));
         inputPanel.add(uvaTextField);
+
+        attPanel.add(new JLabel("ID:"));
+        attPanel.add(attIdTextField);
+        attPanel.add(new JLabel("Nome:"));
+        attPanel.add(attNomeTextField);
+        attPanel.add(new JLabel("Maçã(kg):"));
+        attPanel.add(attMacaTextField);
+        attPanel.add(new JLabel("Banana(kg):"));
+        attPanel.add(attBananaTextField);
+        attPanel.add(new JLabel("Uva(kg):"));
+        attPanel.add(attUvaTextField);
         
         adicionarPanel.setLayout(new BoxLayout(adicionarPanel, BoxLayout.Y_AXIS));
         adicionarPanel.add(inputPanel);
         adicionarPanel.add(confirmarButton);
-        //
+        
+        atualizarPanel.setLayout(new BoxLayout(atualizarPanel, BoxLayout.Y_AXIS));
+        atualizarPanel.add(attPanel);
+        atualizarPanel.add(atualizarButton);
         
         //Tabela
         JTable tabela = carregarDadosCSV();
@@ -89,7 +112,7 @@ public class GuiaComAbas extends JFrame{
         });
     }
     
-    private JTable carregarDadosCSV() {
+    private JTable carregarDadosCSV(){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
@@ -99,7 +122,7 @@ public class GuiaComAbas extends JFrame{
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
                 tableModel.addRow(dados);
-                id++;
+                id = Integer.parseInt(dados[0]);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +130,6 @@ public class GuiaComAbas extends JFrame{
 
         return new JTable(tableModel);
     }
-    
     
     private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
