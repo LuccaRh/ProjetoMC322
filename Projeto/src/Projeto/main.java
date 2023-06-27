@@ -21,6 +21,7 @@ public class main {
 		Imagem asfa = new Imagem();
 		asfa.Mob();
 		*/
+		scanner.close();
 	}
 }
 

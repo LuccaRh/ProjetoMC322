@@ -16,8 +16,10 @@ public class GuiaComAbas extends JFrame{
 	Random random = new Random();
     private int id;
 	public String path;
+    private ImageIcon icon = new ImageIcon("projetoMC322/Projeto/src/Imagens/icon.png");
     public GuiaComAbas(String path){
-        super("Exemplo de Abas");
+        super("Frutaria");
+        setIconImage(icon.getImage());
         this.path = path;
         // Cria o painel de abas
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -275,7 +277,6 @@ public class GuiaComAbas extends JFrame{
     private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva) {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0;
-        boolean idEncontrado = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
