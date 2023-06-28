@@ -13,6 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Random;
 
 public class GuiaComAbas extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3863008056916952901L;
 	Random random = new Random();
     private int id;
 	public String path;
@@ -25,12 +29,14 @@ public class GuiaComAbas extends JFrame{
         JTabbedPane tabbedPane = new JTabbedPane();
 
         // Cria as abas
+        JPanel BEMVINDOPanel = new JPanel();
         JPanel listagemPanel = new JPanel();
         JPanel adicionarPanel = new JPanel();
         JPanel atualizarPanel = new JPanel();
         JPanel removerPanel = new JPanel();
         
         // Adiciona as abas no painel de abas
+        tabbedPane.addTab("Bem Vindo", BEMVINDOPanel);
         tabbedPane.addTab("Listagem", listagemPanel);
         tabbedPane.addTab("Adicionar", adicionarPanel);
         tabbedPane.addTab("Atualizar", atualizarPanel);
@@ -40,17 +46,28 @@ public class GuiaComAbas extends JFrame{
         getContentPane().add(tabbedPane);
 
         // Define o tamanho e a visibilidade do frame
-        setSize(475, 300);
+        setSize(500,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
 
+        /*setar imagem de boas vindas
+        JPanel imagemPanel = new JPanel();
+        BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        add(picLabel);
+        */
+        
         //Adicionar elemento no arquivo
         JPanel inputPanel = new JPanel();
         JTextField nomeTextField = new JTextField(10);
         JTextField macaTextField = new JTextField("0", 10);
         JTextField bananaTextField = new JTextField("0", 10);
         JTextField uvaTextField = new JTextField("0", 10);
+        JTextField alfaceTextField = new JTextField("0", 10);
+        JTextField brocolisTextField = new JTextField("0", 10);
+        JTextField couveTextField = new JTextField("0", 10);
+        JTextField acelgaTextField = new JTextField("0", 10);
         JButton confirmarButton = new JButton("Confirmar");
 
         //Atualizar elemento no arquivo
@@ -59,6 +76,10 @@ public class GuiaComAbas extends JFrame{
         JTextField attMacaTextField = new JTextField("0", 10);
         JTextField attBananaTextField = new JTextField("0", 10);
         JTextField attUvaTextField = new JTextField("0", 10);
+        JTextField attalfaceTextField = new JTextField("0", 10);
+        JTextField attbrocolisTextField = new JTextField("0", 10);
+        JTextField attcouveTextField = new JTextField("0", 10);
+        JTextField attacelgaTextField = new JTextField("0", 10);
         JButton atualizarButton = new JButton("Atualizar");
         
         JPanel remPanel = new JPanel();
@@ -73,10 +94,22 @@ public class GuiaComAbas extends JFrame{
         inputPanel.add(bananaTextField);
         inputPanel.add(new JLabel("Uva(kg):"));
         inputPanel.add(uvaTextField);
+        inputPanel.add(new JLabel("Alface(ramo):"));
+        inputPanel.add(alfaceTextField);
+        inputPanel.add(new JLabel("Brocolis(ramo):"));
+        inputPanel.add(brocolisTextField);
+        inputPanel.add(new JLabel("Couve(ramo):"));
+        inputPanel.add(couveTextField);
+        inputPanel.add(new JLabel("Acelga(ramo):"));
+        inputPanel.add(acelgaTextField);
         nomeTextField.setText("");
         macaTextField.setText("");
         bananaTextField.setText("");
         uvaTextField.setText("");
+        alfaceTextField.setText("");
+        brocolisTextField.setText("");
+        couveTextField.setText("");
+        acelgaTextField.setText("");
 
         attPanel.add(new JLabel("ID:"));
         attPanel.add(attIdTextField);
@@ -86,10 +119,23 @@ public class GuiaComAbas extends JFrame{
         attPanel.add(attBananaTextField);
         attPanel.add(new JLabel("Uva(kg):"));
         attPanel.add(attUvaTextField);
+        attPanel.add(new JLabel("Alface(ramo):"));
+        attPanel.add(attalfaceTextField);
+        attPanel.add(new JLabel("Brocolis(ramo):"));
+        attPanel.add(attbrocolisTextField);
+        attPanel.add(new JLabel("Couve(ramo):"));
+        attPanel.add(attcouveTextField);
+        attPanel.add(new JLabel("Acelga(ramo):"));
+        attPanel.add(attacelgaTextField);
         attIdTextField.setText("");
-        attMacaTextField.setText("");
-        attBananaTextField.setText("");
-        attUvaTextField.setText("");
+        macaTextField.setText("");
+        bananaTextField.setText("");
+        uvaTextField.setText("");
+        alfaceTextField.setText("");
+        brocolisTextField.setText("");
+        couveTextField.setText("");
+        acelgaTextField.setText("");
+        
         
         remPanel.add(new JLabel("ID:"));
         remPanel.add(remIdTextField);
@@ -119,6 +165,10 @@ public class GuiaComAbas extends JFrame{
                 String maca = macaTextField.getText();
                 String banana = bananaTextField.getText();
                 String uva = uvaTextField.getText();
+                String alface = alfaceTextField.getText();
+                String brocolis = brocolisTextField.getText();
+                String couve = couveTextField.getText();
+                String acelga = acelgaTextField.getText();
                 
                 String caminhoArquivo = path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
                 
@@ -137,21 +187,29 @@ public class GuiaComAbas extends JFrame{
                     return;
                 }
                 
-                adicionarRegistroCSV(nome, maca, banana, uva);
+                adicionarRegistroCSV(nome, maca, banana, uva, alface, brocolis, couve, acelga);
                 
                 double macad = Double.parseDouble(maca)*TabelaValores.MACA.getValor();
                 double bananad = Double.parseDouble(banana)*TabelaValores.BANANA.getValor(); 
                 double uvad = Double.parseDouble(uva)*TabelaValores.UVA.getValor();
+                double alfaced = Double.parseDouble(alface)*TabelaValores.ALFACE.getValor();
+                double brocolisd = Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor();
+                double couved = Double.parseDouble(couve)*TabelaValores.COUVE.getValor();
+                double acelgad = Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor();
                 
                 // Limpar os campos de texto após adicionar o registro
                 nomeTextField.setText("");
                 macaTextField.setText("");
                 bananaTextField.setText("");
                 uvaTextField.setText("");
+                alfaceTextField.setText("");
+                brocolisTextField.setText("");
+                couveTextField.setText("");
+                acelgaTextField.setText("");
 
                 // Atualizar a tabela após adicionar o registro
                 DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
-                tableModel.addRow(new Object[]{id, nome, macad, bananad, uvad}); 
+                tableModel.addRow(new Object[]{id, nome, macad, bananad, uvad, alfaced, brocolisd, couved, acelgad}); 
             }
         });
         atualizarButton.addActionListener(new ActionListener(){
@@ -160,6 +218,10 @@ public class GuiaComAbas extends JFrame{
                 String maca = attMacaTextField.getText();
                 String banana = attBananaTextField.getText();
                 String uva = attUvaTextField.getText();
+                String alface = attalfaceTextField.getText();
+                String brocolis = attbrocolisTextField.getText();
+                String couve = attcouveTextField.getText();
+                String acelga = attacelgaTextField.getText();
                 String caminhoArquivo = path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
                 
                 try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
@@ -181,13 +243,17 @@ public class GuiaComAbas extends JFrame{
                     return;
                 }
                 
-                atualizarRegistroCSV(tabela, id, maca, banana, uva);
+                atualizarRegistroCSV(tabela, id, maca, banana, uva, alface,brocolis, couve, acelga);
                 
                 // Limpar os campos de texto após adicionar o registro
                 attIdTextField.setText("");
                 attMacaTextField.setText("");
                 attBananaTextField.setText("");
                 attUvaTextField.setText("");
+                attalfaceTextField.setText("");
+                attbrocolisTextField.setText("");
+                attcouveTextField.setText("");
+                attacelgaTextField.setText("");
                 
              
             }
@@ -236,7 +302,7 @@ public class GuiaComAbas extends JFrame{
     
     private JTable carregarDadosCSV(){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
-        String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva"};
+        String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva", "Alface", "Brocolis", "Couve", "Acelga"};
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
@@ -253,7 +319,7 @@ public class GuiaComAbas extends JFrame{
         return new JTable(tableModel);
     }
     
-    private void adicionarRegistroCSV(String nome, String maca, String banana, String uva){
+    private void adicionarRegistroCSV(String nome, String maca, String banana, String uva, String alface, String brocolis, String couve, String acelga){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         
 
@@ -264,7 +330,11 @@ public class GuiaComAbas extends JFrame{
                                 + nome + "," 
                                 + Double.parseDouble(maca)*TabelaValores.MACA.getValor() + "," 
                                 + Double.parseDouble(banana)*TabelaValores.BANANA.getValor() + "," 
-                                + Double.parseDouble(uva)*TabelaValores.UVA.getValor();
+                                + Double.parseDouble(uva)*TabelaValores.UVA.getValor()+ ","
+            					+ Double.parseDouble(alface)*TabelaValores.ALFACE.getValor()+ ","
+            					+ Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor()+ ","
+            					+ Double.parseDouble(couve)*TabelaValores.COUVE.getValor()+ ","
+            					+ Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor();
             writer.write(novoRegistro);
             writer.newLine();
             JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -274,10 +344,9 @@ public class GuiaComAbas extends JFrame{
         }
     }
 
-    private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva) {
+    private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva, String alface, String brocolis, String couve, String acelga) {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
-        double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0;
-
+        double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0, doubleAlface = 0.0, doubleBrocolis = 0.0, doubleCouve = 0.0, doubleAcelga = 0.0;
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
             int row = 0;
@@ -297,6 +366,22 @@ public class GuiaComAbas extends JFrame{
                     if (!uva.isEmpty()) {
                         doubleUva = Double.parseDouble(uva) * TabelaValores.UVA.getValor();
                         tabela.setValueAt(doubleUva + "", row, 4); // Atualiza a uva
+                    }
+                    if (!alface.isEmpty()) {
+                         doubleAlface = Double.parseDouble(alface) * TabelaValores.ALFACE.getValor();
+                         tabela.setValueAt(doubleAlface + "", row, 5); // Atualiza a alface
+                    }
+                    if (!brocolis.isEmpty()) {
+                        doubleBrocolis = Double.parseDouble(brocolis) * TabelaValores.BROCOLIS.getValor();
+                        tabela.setValueAt(doubleBrocolis + "", row,6); // Atualiza o brocolis 
+                    }
+                    if (!couve.isEmpty()) {
+                        doubleCouve = Double.parseDouble(couve) * TabelaValores.COUVE.getValor();
+                        tabela.setValueAt(doubleCouve + "", row,7); // Atualiza a couve
+                    }
+                    if (!acelga.isEmpty()) {
+                        doubleAcelga = Double.parseDouble(acelga) * TabelaValores.ACELGA.getValor();
+                        tabela.setValueAt(doubleAcelga + "", row,8); // Atualiza a acelga
                     }
                     break;
                 }
