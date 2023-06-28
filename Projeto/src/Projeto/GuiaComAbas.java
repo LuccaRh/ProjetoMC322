@@ -1,7 +1,9 @@
 package Projeto;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -21,7 +23,7 @@ public class GuiaComAbas extends JFrame{
     private int id;
 	public String path;
     private ImageIcon icon = new ImageIcon("projetoMC322/Projeto/src/Imagens/icon.png");
-    public GuiaComAbas(String path){
+    public GuiaComAbas(String path) throws IOException{
         super("Frutaria");
         setIconImage(icon.getImage());
         this.path = path;
@@ -46,17 +48,17 @@ public class GuiaComAbas extends JFrame{
         getContentPane().add(tabbedPane);
 
         // Define o tamanho e a visibilidade do frame
-        setSize(500,400);
+        setSize(600,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
 
-        /*setar imagem de boas vindas
-        JPanel imagemPanel = new JPanel();
-        BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
+        //setar imagem de boas vindas
+
+        BufferedImage myPicture = ImageIO.read(new File(path+"ProjetoMC322/Projeto/src/Imagens/ENTRY.png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        add(picLabel);
-        */
+        BEMVINDOPanel.add(picLabel);
+        
         
         //Adicionar elemento no arquivo
         JPanel inputPanel = new JPanel();
@@ -140,6 +142,7 @@ public class GuiaComAbas extends JFrame{
         remPanel.add(new JLabel("ID:"));
         remPanel.add(remIdTextField);
         remIdTextField.setText("");
+        
         
         adicionarPanel.setLayout(new BoxLayout(adicionarPanel, BoxLayout.Y_AXIS));
         adicionarPanel.add(inputPanel);

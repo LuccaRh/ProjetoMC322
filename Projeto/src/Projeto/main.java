@@ -1,5 +1,7 @@
 package Projeto;
 import javax.swing.SwingUtilities;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class main{
@@ -13,7 +15,12 @@ public class main{
 		//Abas de ações
 		SwingUtilities.invokeLater(new Runnable(){
             public void run(){
-                new GuiaComAbas(path);
+                try {
+					new GuiaComAbas(path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 		

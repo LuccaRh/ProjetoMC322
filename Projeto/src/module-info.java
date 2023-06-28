@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author lucca
+ * @author Lucca, Caio, Fábio, Daniel
  *
  */
 module Projeto {
