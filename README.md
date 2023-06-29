@@ -1,4 +1,4 @@
-# ProjetoMC322
+# Sistema de uma frutaria
 
 O programa possui uma estrutura hierárquica de classes e interfaces relacionadas a frutas e verduras.
 
