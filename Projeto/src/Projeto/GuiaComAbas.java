@@ -13,20 +13,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.table.DefaultTableModel;
 import java.util.Random;
-<<<<<<< HEAD
 import java.text.DecimalFormat;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
 
 public class GuiaComAbas extends JFrame{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3863008056916952901L;
-<<<<<<< HEAD
 	private static final DecimalFormat df = new DecimalFormat("0.00");
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
 	Random random = new Random();
     private int id;
 	public String path;
@@ -112,7 +106,6 @@ public class GuiaComAbas extends JFrame{
         inputPanel.add(couveTextField);
         inputPanel.add(new JLabel("Acelga(ramo):"));
         inputPanel.add(acelgaTextField);
-<<<<<<< HEAD
         
         nomeTextField.setText("");
         macaTextField.setText("0");
@@ -122,16 +115,6 @@ public class GuiaComAbas extends JFrame{
         brocolisTextField.setText("0");
         couveTextField.setText("0");
         acelgaTextField.setText("0");
-=======
-        nomeTextField.setText("");
-        macaTextField.setText("");
-        bananaTextField.setText("");
-        uvaTextField.setText("");
-        alfaceTextField.setText("");
-        brocolisTextField.setText("");
-        couveTextField.setText("");
-        acelgaTextField.setText("");
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
 
         attPanel.add(new JLabel("ID:"));
         attPanel.add(attIdTextField);
@@ -149,7 +132,6 @@ public class GuiaComAbas extends JFrame{
         attPanel.add(attcouveTextField);
         attPanel.add(new JLabel("Acelga(ramo):"));
         attPanel.add(attacelgaTextField);
-<<<<<<< HEAD
         
         attIdTextField.setText("");
         attMacaTextField.setText("");
@@ -159,16 +141,6 @@ public class GuiaComAbas extends JFrame{
         attbrocolisTextField.setText("");
         attcouveTextField.setText("");
         attacelgaTextField.setText("");
-=======
-        attIdTextField.setText("");
-        macaTextField.setText("");
-        bananaTextField.setText("");
-        uvaTextField.setText("");
-        alfaceTextField.setText("");
-        brocolisTextField.setText("");
-        couveTextField.setText("");
-        acelgaTextField.setText("");
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
         
         
         remPanel.add(new JLabel("ID:"));
@@ -191,13 +163,10 @@ public class GuiaComAbas extends JFrame{
         //Tabela
         JTable tabela = carregarDadosCSV();
         JScrollPane scrollPane = new JScrollPane(tabela);
-<<<<<<< HEAD
         	//Ajustar tamanho das colunas
         int columnWidth = 100; // 
         tabela.getColumnModel().getColumn(9).setPreferredWidth(columnWidth);
         tabela.getColumnModel().getColumn(6).setPreferredWidth(columnWidth);
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
         listagemPanel.add(scrollPane);
     
         //Botão de confirmar
@@ -238,7 +207,6 @@ public class GuiaComAbas extends JFrame{
                 double brocolisd = Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor();
                 double couved = Double.parseDouble(couve)*TabelaValores.COUVE.getValor();
                 double acelgad = Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor();
-<<<<<<< HEAD
                 double total = Double.parseDouble(maca)*TabelaValores.MACA.getValor() + Double.parseDouble(banana)*TabelaValores.BANANA.getValor() + 
             			Double.parseDouble(uva)*TabelaValores.UVA.getValor()+ Double.parseDouble(alface)*TabelaValores.ALFACE.getValor() + 
             			Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor()+ + Double.parseDouble(couve)*TabelaValores.COUVE.getValor()+ 
@@ -257,22 +225,6 @@ public class GuiaComAbas extends JFrame{
                 // Atualizar a tabela após adicionar o registro
                 DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
                 tableModel.addRow(new Object[]{id, nome, macad, bananad, uvad, alfaced, brocolisd, couved, acelgad, total}); 
-=======
-                
-                // Limpar os campos de texto após adicionar o registro
-                nomeTextField.setText("");
-                macaTextField.setText("");
-                bananaTextField.setText("");
-                uvaTextField.setText("");
-                alfaceTextField.setText("");
-                brocolisTextField.setText("");
-                couveTextField.setText("");
-                acelgaTextField.setText("");
-
-                // Atualizar a tabela após adicionar o registro
-                DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
-                tableModel.addRow(new Object[]{id, nome, macad, bananad, uvad, alfaced, brocolisd, couved, acelgad}); 
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
             }
         });
         atualizarButton.addActionListener(new ActionListener(){
@@ -365,11 +317,7 @@ public class GuiaComAbas extends JFrame{
     
     private JTable carregarDadosCSV(){
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
-<<<<<<< HEAD
         String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva", "Alface", "Brocolis", "Couve", "Acelga", "Total (R$)"};
-=======
-        String[] colunas = {"ID", "Nome", "Maca", "Banana", "Uva", "Alface", "Brocolis", "Couve", "Acelga"};
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
         DefaultTableModel tableModel = new DefaultTableModel(colunas, 0);
         
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
@@ -393,13 +341,10 @@ public class GuiaComAbas extends JFrame{
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo, true))){
         	int numeroInteiro = random.nextInt(100000000);
         	id = numeroInteiro;
-<<<<<<< HEAD
         	double total = Double.parseDouble(maca)*TabelaValores.MACA.getValor() + Double.parseDouble(banana)*TabelaValores.BANANA.getValor() + 
         			Double.parseDouble(uva)*TabelaValores.UVA.getValor()+ Double.parseDouble(alface)*TabelaValores.ALFACE.getValor() + 
         			Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor()+ + Double.parseDouble(couve)*TabelaValores.COUVE.getValor()+ 
 					Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor();
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
             String novoRegistro = id + "," 
                                 + nome + "," 
                                 + Double.parseDouble(maca)*TabelaValores.MACA.getValor() + "," 
@@ -408,12 +353,8 @@ public class GuiaComAbas extends JFrame{
             					+ Double.parseDouble(alface)*TabelaValores.ALFACE.getValor()+ ","
             					+ Double.parseDouble(brocolis)*TabelaValores.BROCOLIS.getValor()+ ","
             					+ Double.parseDouble(couve)*TabelaValores.COUVE.getValor()+ ","
-<<<<<<< HEAD
             					+ Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor() + ","
             					+ total;
-=======
-            					+ Double.parseDouble(acelga)*TabelaValores.ACELGA.getValor();
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
             writer.write(novoRegistro);
             writer.newLine();
             JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -426,12 +367,8 @@ public class GuiaComAbas extends JFrame{
     private void atualizarRegistroCSV(JTable tabela, String stringId, String maca, String banana, String uva, String alface, String brocolis, String couve, String acelga) {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         double doubleMaca = 0.0, doubleBanana = 0.0, doubleUva = 0.0, doubleAlface = 0.0, doubleBrocolis = 0.0, doubleCouve = 0.0, doubleAcelga = 0.0;
-<<<<<<< HEAD
         try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
             BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo + ".tmp"))) {
-=======
-        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
             String linha;
             int row = 0;
             
@@ -442,55 +379,36 @@ public class GuiaComAbas extends JFrame{
                     if (!maca.isEmpty()) {
                         doubleMaca = Double.parseDouble(maca) * TabelaValores.MACA.getValor();
                         tabela.setValueAt(doubleMaca + "", row, 2); // Atualiza a maçã
-<<<<<<< HEAD
                         dados[2] = maca;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!banana.isEmpty()) {
                         doubleBanana = Double.parseDouble(banana) * TabelaValores.BANANA.getValor();
                         tabela.setValueAt(doubleBanana + "", row, 3); // Atualiza a banana
-<<<<<<< HEAD
                         dados[3] = banana;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!uva.isEmpty()) {
                         doubleUva = Double.parseDouble(uva) * TabelaValores.UVA.getValor();
                         tabela.setValueAt(doubleUva + "", row, 4); // Atualiza a uva
-<<<<<<< HEAD
                         dados[4] = uva;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!alface.isEmpty()) {
                          doubleAlface = Double.parseDouble(alface) * TabelaValores.ALFACE.getValor();
                          tabela.setValueAt(doubleAlface + "", row, 5); // Atualiza a alface
-<<<<<<< HEAD
                          dados[5] = alface;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!brocolis.isEmpty()) {
                         doubleBrocolis = Double.parseDouble(brocolis) * TabelaValores.BROCOLIS.getValor();
                         tabela.setValueAt(doubleBrocolis + "", row,6); // Atualiza o brocolis 
-<<<<<<< HEAD
                         dados[6] = brocolis;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!couve.isEmpty()) {
                         doubleCouve = Double.parseDouble(couve) * TabelaValores.COUVE.getValor();
                         tabela.setValueAt(doubleCouve + "", row,7); // Atualiza a couve
-<<<<<<< HEAD
                         dados[7] = couve;
-=======
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
                     }
                     if (!acelga.isEmpty()) {
                         doubleAcelga = Double.parseDouble(acelga) * TabelaValores.ACELGA.getValor();
                         tabela.setValueAt(doubleAcelga + "", row,8); // Atualiza a acelga
-<<<<<<< HEAD
                         dados[8] = acelga;
                     }
                     double total = Double.parseDouble(dados[2]) + Double.parseDouble(dados[3]) + Double.parseDouble(dados[4]) + 
@@ -514,12 +432,6 @@ public class GuiaComAbas extends JFrame{
     					+ dados[9];
                 writer.write(linhaAtualizada);
                 writer.newLine();
-=======
-                    }
-                    break;
-                }
-                row++;
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
             }
             JOptionPane.showMessageDialog(null, "Valores atualizados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
@@ -527,7 +439,6 @@ public class GuiaComAbas extends JFrame{
             e.printStackTrace();
             return;
         }
-<<<<<<< HEAD
         
      // Remova o arquivo original e renomeie o arquivo temporário para o nome original
         File arquivoOriginal = new File(caminhoArquivo);
@@ -539,10 +450,6 @@ public class GuiaComAbas extends JFrame{
 
        }
     
-=======
-      
-    }
->>>>>>> 610c0f8e6cf8a80cfc732c794143fd53d13bf72c
     private void removerRegistroCSV(JTable tabela, String id) throws IOException {
         String caminhoArquivo = this.path + "projetoMC322/Projeto/src/Projeto/Nome.csv";
         DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
