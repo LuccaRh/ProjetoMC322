@@ -1,0 +1,59 @@
+package Projeto;
+import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			} catch (Exception ex) {
+			}
+			String nome = null;
+			int resposta;
+			nome = JOptionPane.showInputDialog("Qual é o seu nome?");
+			resposta = JOptionPane.showConfirmDialog(null, "0 seu nome é " + nome + "?");
+			if (resposta == JOptionPane.YES_OPTION) {
+			// verifica se o usuário clicou no botão YES
+				JOptionPane.showMessageDialog(null, "Seu nome é " + nome, null, JOptionPane.INFORMATION_MESSAGE);
+			} else {
+			JOptionPane.showMessageDialog(null, "Seu nome não é " + nome, null, JOptionPane. ERROR_MESSAGE);
+			}
+			
+			JFrame frame = new JFrame("Exemplo de redimensionamento de imagem");
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	        // Carregar a imagem do arquivo
+	        ImageIcon imageIcon = new ImageIcon("Mob-laughing-1024x576.jpg");
+
+	        // Obter a imagem do ImageIcon
+	        Image imagemOriginal = imageIcon.getImage();
+
+	        // Definir o novo tamanho desejado
+	        int larguraDesejada = 400;
+	        int alturaDesejada = 300;
+
+	        // Redimensionar a imagem
+	        Image imagemRedimensionada = imagemOriginal.getScaledInstance(larguraDesejada, alturaDesejada, Image.SCALE_DEFAULT);
+
+	        // Criar um novo ImageIcon com a imagem redimensionada
+	        ImageIcon imageIconRedimensionado = new ImageIcon(imagemRedimensionada);
+
+	        // Criar um rótulo e atribuir a imagem redimensionada
+	        JLabel label = new JLabel(imageIconRedimensionado);
+
+	        // Adicionar o rótulo ao frame
+	        frame.getContentPane().add(label);
+
+	        frame.pack();
+	        frame.setVisible(true);
+	    }
+
+
+
+	        
+	}
+
+}

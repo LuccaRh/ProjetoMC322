@@ -1,0 +1,114 @@
+package Projeto;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+/*public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			} catch (Exception ex) {
+			}
+			String nome = null;
+			int resposta;
+			nome = JOptionPane.showInputDialog("Qual é o seu nome?");
+			resposta = JOptionPane.showConfirmDialog(null, "0 seu nome é " + nome + "?");
+			if (resposta == JOptionPane.YES_OPTION) {
+			// verifica se o usuário clicou no botão YES
+				JOptionPane.showMessageDialog(null, "Seu nome é " + nome, null, JOptionPane.INFORMATION_MESSAGE);
+			} else {
+			JOptionPane.showMessageDialog(null, "Seu nome não é " + nome, null, JOptionPane. ERROR_MESSAGE);
+			}			
+			        String caminhoArquivo = "c:/Users/lucca/projetoMC322/Projeto/src/Projeto/Nome.csv";
+			        String nomeDesejado = nome;
+			        System.out.println(nomeDesejado);
+			        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+			            String linha;
+			            boolean nomeEncontrado = false;
+
+			            while ((linha = reader.readLine()) != null) {
+			                String[] colunas = linha.split(","); // Supondo que as colunas sejam separadas por vírgula
+
+			                if (colunas.length > 0) {
+			                    String nome1 = colunas[0]; // Supondo que a coluna dos nomes seja a primeira coluna
+			                    nome1 = nome1.replace("\"", "");
+			                    if (nome1.equalsIgnoreCase(nomeDesejado)) {
+			                        nomeEncontrado = true;
+			                        break;
+			                    }
+			                }
+			            }
+
+			            if (nomeEncontrado) {
+			                System.out.println("O nome foi encontrado no arquivo CSV.");
+			            } else {
+			                System.out.println("O nome não foi encontrado no arquivo CSV.");
+			            }
+			        } catch (IOException e) {
+			            e.printStackTrace();
+			        }
+			Imagem asfa = new Imagem();
+			asfa.Mob();			
+	    }       */	
+
+	public class Imagens {
+
+	    public Imagens() {
+	        JFrame frame = new JFrame("Test Image");
+	        frame.add(new NewImagePanel());
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.pack();
+	        frame.setVisible(true);
+	    }
+
+	    public class NewImagePanel extends JPanel {
+
+	        private BufferedImage img;
+
+	        public NewImagePanel() {
+	            try {
+	                img = ImageIO.read(Imagens.class.getResource("Mob-laughing-1024x576.jpg"));
+	            } catch (IOException ex) {
+	                System.out.println("Could not load image");
+	            }
+	        }
+
+	        @Override
+	        public Dimension getPreferredSize() {
+	            return new Dimension(600, 600);
+	        }
+
+	        @Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        SwingUtilities.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                new Imagens();
+	            }
+	        });
+	    }
+	}
+
+
+
+

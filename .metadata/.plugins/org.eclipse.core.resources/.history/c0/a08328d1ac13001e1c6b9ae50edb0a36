@@ -1,0 +1,42 @@
+package Projeto;
+import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+				UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			} catch (Exception ex) {
+			}
+			String nome = null;
+			int resposta;
+			nome = JOptionPane.showInputDialog("Qual é o seu nome?");
+			resposta = JOptionPane.showConfirmDialog(null, "0 seu nome é " + nome + "?");
+			if (resposta == JOptionPane.YES_OPTION) {
+			// verifica se o usuário clicou no botão YES
+				JOptionPane.showMessageDialog(null, "Seu nome é " + nome, null, JOptionPane.INFORMATION_MESSAGE);
+			} else {
+			JOptionPane.showMessageDialog(null, "Seu nome não é " + nome, null, JOptionPane. ERROR_MESSAGE);
+			}
+			
+			JFrame frame = new JFrame("Exemplo de redimensionamento de imagem");
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	        // Carregar a imagem do arquivo
+	        ImageIcon imageIcon = new ImageIcon("Mob-laughing-1024x576.jpg");
+	        JFrame frame1 = new JFrame("Exemplo de redimensionamento de imagem");
+	        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        JButton b1 = new JButton(imageIcon);
+	        frame1.add(b1);
+	        frame1.pack();
+	        frame1.show();
+	    }       
+	}
+
