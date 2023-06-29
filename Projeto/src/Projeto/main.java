@@ -9,7 +9,6 @@ public class main{
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
 
-
         System.out.print("Digite o começo do path para o arquivo do projeto (ex: c:/Users/lucca/): ");
         String path = scanner.nextLine();
         

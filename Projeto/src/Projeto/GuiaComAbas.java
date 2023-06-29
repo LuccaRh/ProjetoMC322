@@ -379,37 +379,37 @@ public class GuiaComAbas extends JFrame{
                     if (!maca.isEmpty()) {
                         doubleMaca = Double.parseDouble(maca) * TabelaValores.MACA.getValor();
                         tabela.setValueAt(doubleMaca + "", row, 2); // Atualiza a maçã
-                        dados[2] = maca;
+                        dados[2] = String.valueOf(doubleMaca);
                     }
                     if (!banana.isEmpty()) {
                         doubleBanana = Double.parseDouble(banana) * TabelaValores.BANANA.getValor();
                         tabela.setValueAt(doubleBanana + "", row, 3); // Atualiza a banana
-                        dados[3] = banana;
+                        dados[3] = String.valueOf(doubleBanana);
                     }
                     if (!uva.isEmpty()) {
                         doubleUva = Double.parseDouble(uva) * TabelaValores.UVA.getValor();
                         tabela.setValueAt(doubleUva + "", row, 4); // Atualiza a uva
-                        dados[4] = uva;
+                        dados[4] = String.valueOf(doubleUva);
                     }
                     if (!alface.isEmpty()) {
                          doubleAlface = Double.parseDouble(alface) * TabelaValores.ALFACE.getValor();
                          tabela.setValueAt(doubleAlface + "", row, 5); // Atualiza a alface
-                         dados[5] = alface;
+                         dados[5] = String.valueOf(doubleAlface);
                     }
                     if (!brocolis.isEmpty()) {
                         doubleBrocolis = Double.parseDouble(brocolis) * TabelaValores.BROCOLIS.getValor();
                         tabela.setValueAt(doubleBrocolis + "", row,6); // Atualiza o brocolis 
-                        dados[6] = brocolis;
+                        dados[6] = String.valueOf(doubleBrocolis);
                     }
                     if (!couve.isEmpty()) {
                         doubleCouve = Double.parseDouble(couve) * TabelaValores.COUVE.getValor();
                         tabela.setValueAt(doubleCouve + "", row,7); // Atualiza a couve
-                        dados[7] = couve;
+                        dados[7] = String.valueOf(doubleCouve);
                     }
                     if (!acelga.isEmpty()) {
                         doubleAcelga = Double.parseDouble(acelga) * TabelaValores.ACELGA.getValor();
                         tabela.setValueAt(doubleAcelga + "", row,8); // Atualiza a acelga
-                        dados[8] = acelga;
+                        dados[8] = String.valueOf(doubleAcelga);
                     }
                     double total = Double.parseDouble(dados[2]) + Double.parseDouble(dados[3]) + Double.parseDouble(dados[4]) + 
                     		Double.parseDouble(dados[5]) + Double.parseDouble(dados[6]) + Double.parseDouble(dados[7]) +
